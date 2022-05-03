@@ -1,16 +1,21 @@
-import React from 'react'
-import { Text } from 'react-native'
+import React from "react";
+import { Text } from "react-native";
 
-import { Header } from '../../components/Header'
+import { Header } from "../../components/Header";
+import { ResumeCard } from "../../components/ResumeCard";
 
-import { Container } from './style'
+import { Container, ContentResumeCards } from "./style";
 
 export function Dashboard() {
   return (
     <Container>
-      <Header/>
+      <Header />
 
-      <Text>Dashboard</Text>
+      <ContentResumeCards>
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+      </ContentResumeCards>
     </Container>
-  )
+  );
 }

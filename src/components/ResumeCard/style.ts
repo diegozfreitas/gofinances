@@ -16,6 +16,8 @@ export const Container = styled.View`
   border-width: 1px;
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.text};
+
+  margin-right: 16px;
 `;
 
 export const Header = styled.View`
