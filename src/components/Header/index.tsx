@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View, } from 'react-native'
+import React from "react";
+import { Text, View } from "react-native";
 
 import {
   Container,
@@ -8,8 +8,8 @@ import {
   ContentInfo,
   TextGreeting,
   TextName,
-  Icon
-} from './style'
+  Icon,
+} from "./style";
 
 export function Header() {
   return (
@@ -17,10 +17,10 @@ export function Header() {
       <Head>
         <ContentInfo>
           <Image
-            source={{ uri: 'https://avatars.githubusercontent.com/u/14065173' }}
+            source={{ uri: "https://avatars.githubusercontent.com/u/14065173" }}
           />
 
-          <View style={{marginLeft: 16}}>
+          <View style={{ marginLeft: 16 }}>
             <TextGreeting>Olá</TextGreeting>
             <TextName>Diego</TextName>
           </View>
@@ -28,7 +28,6 @@ export function Header() {
 
         <Icon name="power" />
       </Head>
-
     </Container>
-  )
+  );
 }

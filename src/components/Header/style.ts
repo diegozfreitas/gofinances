@@ -27,7 +27,7 @@ export const Image = styled.Image`
 
 export const ContentInfo = styled.View`
   flex-direction: row;
-  align-items: center ;
+  align-items: center;
 `;
 
 export const TextGreeting = styled.Text`
@@ -41,6 +41,6 @@ export const TextName = styled.Text`
 `;
 
 export const Icon = styled(Feather)<FeatherProps>`
-  color: ${({ theme }) => theme.colors.secondary };
+  color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(22)}px;
 `;
