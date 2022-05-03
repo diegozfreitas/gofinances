@@ -1,26 +1,34 @@
 import React from 'react'
-import { Text, View, Image } from 'react-native'
+import { Text, View, } from 'react-native'
 
-import { Container, Icon } from './style'
+import {
+  Container,
+  Head,
+  Image,
+  ContentInfo,
+  TextGreeting,
+  TextName,
+  Icon
+} from './style'
 
 export function Header() {
   return (
     <Container>
-      <View>
-        <Image
-          source={{
-            uri: 'https://avatars.githubusercontent.com/u/14065173',
-          }}
-          width={30}
-          height={30}
-        />
-        <View>
-          <Text>Olá</Text>
-          <Text>Diego</Text>
-        </View>
-      </View>
+      <Head>
+        <ContentInfo>
+          <Image
+            source={{ uri: 'https://avatars.githubusercontent.com/u/14065173' }}
+          />
 
-      <Icon name="power"/>
+          <View style={{marginLeft: 16}}>
+            <TextGreeting>Olá</TextGreeting>
+            <TextName>Diego</TextName>
+          </View>
+        </ContentInfo>
+
+        <Icon name="power" />
+      </Head>
+
     </Container>
   )
 }
