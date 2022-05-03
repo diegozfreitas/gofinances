@@ -12,9 +12,24 @@ export function Dashboard() {
       <Header />
 
       <ContentResumeCards>
-        <ResumeCard />
-        <ResumeCard />
-        <ResumeCard />
+        <ResumeCard 
+          title={"Entrada"}
+          amount={"R$ 500,00"}
+          description={"bla bla bla"}
+          type={"up"}
+        />
+        <ResumeCard 
+          title={"Saidas"}
+          amount={"R$ 200,00"}
+          description={"bla bla bla"}
+          type={"down"}
+        />
+        <ResumeCard 
+          title={"Resumo"}
+          amount={"R$ 500,00"}
+          description={"bla bla bla"}
+          type={"resume"}
+        />
       </ContentResumeCards>
     </Container>
   );

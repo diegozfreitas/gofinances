@@ -10,17 +10,30 @@ import {
   Description,
 } from "./style";
 
-export const ResumeCard = () => {
+interface ResumeCardProps {
+  title: string;
+  amount: string;
+  description: string;
+  type: 'up' | 'down' | 'resume'
+}
+
+const iconType = {
+  up: 'arrow-up-circle',
+  down: 'arrow-down-circle',
+  resume: 'dollar-sign'
+}
+
+export const ResumeCard = ({ amount, description, title, type }: ResumeCardProps) => {
   return (
-    <Container>
+    <Container type={type}>
       <Header>
-        <Title>Entrada</Title>
-        <Icon name="arrow-up-circle" />
+        <Title type={type}>{title}</Title>
+        <Icon name={iconType[type]} type={type}/>
       </Header>
 
       <Body>
-        <Amount>R$ 17.000,00</Amount>
-        <Description>Ultima entrada dia 08 de abril</Description>
+        <Amount type={type}>{amount}</Amount>
+        <Description type={type}>{description}</Description>
       </Body>
     </Container>
   );
