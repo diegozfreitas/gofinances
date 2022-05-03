@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 
 import { Header } from "../../components/Header";
+import { ListTransactions } from "../../components/ListTransactions";
 import { ResumeCard } from "../../components/ResumeCard";
 
 import { Container, ContentResumeCards } from "./style";
@@ -31,6 +32,10 @@ export function Dashboard() {
           type={"resume"}
         />
       </ContentResumeCards>
+
+      <ListTransactions/>
+
+      
     </Container>
   );
 }
