@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Text } from 'react-native'
+import { Text } from 'react-native'
 
 import { Header } from '../../components/Header'
 
@@ -9,6 +9,7 @@ export function Dashboard() {
   return (
     <Container>
       <Header/>
+
       <Text>Dashboard</Text>
     </Container>
   )
