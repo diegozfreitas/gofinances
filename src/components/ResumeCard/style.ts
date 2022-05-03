@@ -22,10 +22,6 @@ export const Container = styled.View<typeProps>`
 
   padding: 16px 24px ${RFValue(32)}px;
 
-  border-width: 1px;
-  border-style: solid;
-  border-color: ${({ theme }) => theme.colors.text};
-
   margin-right: 16px;
 `;
 
