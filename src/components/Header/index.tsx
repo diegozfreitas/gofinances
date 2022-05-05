@@ -9,25 +9,38 @@ import {
   TextGreeting,
   TextName,
   Icon,
+  Title
 } from "./style";
 
-export function Header() {
+interface HeaderProps {
+  hiddenInfoUser?: boolean;
+  height?: number;
+  title?: string;
+}
+
+export const Header = ({ hiddenInfoUser, height, title }: HeaderProps) => {
   return (
-    <Container>
-      <Head>
-        <ContentInfo>
-          <Image
-            source={{ uri: "https://avatars.githubusercontent.com/u/14065173" }}
-          />
+    <Container height={height}>
+      {!hiddenInfoUser && (
+        <Head>
+          <ContentInfo>
+            <Image
+              source={{
+                uri: "https://avatars.githubusercontent.com/u/14065173",
+              }}
+            />
 
-          <View style={{ marginLeft: 16 }}>
-            <TextGreeting>Olá</TextGreeting>
-            <TextName>Diego</TextName>
-          </View>
-        </ContentInfo>
+            <View style={{ marginLeft: 16 }}>
+              <TextGreeting>Olá</TextGreeting>
+              <TextName>Diego</TextName>
+            </View>
+          </ContentInfo>
 
-        <Icon name="power" />
-      </Head>
+          <Icon name="power" />
+        </Head>
+      )}
+
+      <Title>{title}</Title>
     </Container>
   );
-}
+};

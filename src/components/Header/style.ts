@@ -3,13 +3,16 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
 
 type FeatherProps = typeof Feather;
+interface ContainerProps {
+  height?: number;
+}
 
-export const Container = styled.View`
+export const Container = styled.View<ContainerProps>`
   background-color: ${({ theme }) => theme.colors.primary};
   width: 100%;
   padding: 16px;
   padding-top: ${RFPercentage(7)}px;
-  min-height: ${RFPercentage(40)}px;
+  min-height: ${({ height }) => RFPercentage(height ? height : 40)}px;
 `;
 
 export const Head = styled.View`
@@ -43,4 +46,13 @@ export const TextName = styled.Text`
 export const Icon = styled(Feather)<FeatherProps>`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(22)}px;
+`;
+
+export const Title = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(22)}px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.shape};
+  align-self: center;
 `;
