@@ -7,25 +7,25 @@ import { ResumeCard } from "../../components/ResumeCard";
 
 import { Container, ContentResumeCards } from "./style";
 
-export function Dashboard() {
+export const Dashboard = () => {
   return (
     <Container>
       <Header />
 
       <ContentResumeCards>
-        <ResumeCard 
+        <ResumeCard
           title={"Entrada"}
           amount={"R$ 500,00"}
           description={"bla bla bla"}
           type={"up"}
         />
-        <ResumeCard 
+        <ResumeCard
           title={"Saidas"}
           amount={"R$ 200,00"}
           description={"bla bla bla"}
           type={"down"}
         />
-        <ResumeCard 
+        <ResumeCard
           title={"Resumo"}
           amount={"R$ 500,00"}
           description={"bla bla bla"}
@@ -33,9 +33,7 @@ export function Dashboard() {
         />
       </ContentResumeCards>
 
-      <ListTransactions/>
-
-      
+      <ListTransactions />
     </Container>
   );
-}
+};
