@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Container, List, Item, Label } from "./style";
+import { Container, List, Item, Label, Circle } from "./style";
 
 import { Header } from "../Header";
 
@@ -24,6 +24,7 @@ export const ListCategories = ({ data }: ListCategoriesProps) => {
         keyExtractor={(item: DataCategory) => item.key}
         renderItem={({ item }: { item: DataCategory }) => (
           <Item>
+            <Circle color={item.color} />
             <Label>{item.name}</Label>
           </Item>
         )}
