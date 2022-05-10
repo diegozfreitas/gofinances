@@ -17,3 +17,7 @@ export const ContainerOptions = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const MarginEight = styled.View`
+  margin-top: 8px;
+`;

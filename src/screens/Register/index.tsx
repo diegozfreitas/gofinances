@@ -6,7 +6,13 @@ import { OptionButton } from "../../components/Form/OptionButton";
 import { Select } from "../../components/Form/Select";
 import { Button } from "../../components/Button";
 
-import { Container, Form, Fields, ContainerOptions } from "./style";
+import {
+  Container,
+  Form,
+  Fields,
+  ContainerOptions,
+  MarginEight,
+} from "./style";
 
 export const Register = () => {
   const [transactionType, setTransactionType] = useState("");
@@ -19,6 +25,8 @@ export const Register = () => {
           <InputText placeholder="Nome" />
 
           <InputText placeholder="Valor" />
+
+          <MarginEight />
 
           <ContainerOptions>
             <OptionButton
@@ -38,7 +46,9 @@ export const Register = () => {
             />
           </ContainerOptions>
 
-          <Select/>
+          <MarginEight />
+
+          <Select />
         </Fields>
 
         <Button title="Enviar" onPress={() => {}} />

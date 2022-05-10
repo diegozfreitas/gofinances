@@ -3,7 +3,7 @@ import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
-  margin-top: 8px;
+  margin-bottom: 8px;
 `;
 
 export const Header = styled.TouchableOpacity.attrs({
