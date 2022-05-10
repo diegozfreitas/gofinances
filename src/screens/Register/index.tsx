@@ -5,6 +5,9 @@ import { InputText } from "../../components/Form/InputText";
 import { OptionButton } from "../../components/Form/OptionButton";
 import { Select } from "../../components/Form/Select";
 import { Button } from "../../components/Button";
+import { ListCategories } from "../../components/ListCategories";
+
+import { categories } from "../../utils/categories";
 
 import {
   Container,
@@ -18,7 +21,7 @@ export const Register = () => {
   const [transactionType, setTransactionType] = useState("");
   return (
     <Container>
-      <Header hiddenInfoUser height={14} title="Lançamento" />
+      {/* <Header hiddenInfoUser height={14} title="Lançamento" />
 
       <Form>
         <Fields>
@@ -49,10 +52,12 @@ export const Register = () => {
           <MarginEight />
 
           <Select />
+
         </Fields>
 
         <Button title="Enviar" onPress={() => {}} />
-      </Form>
+      </Form> */}
+      <ListCategories data={categories} />
     </Container>
   );
 };
