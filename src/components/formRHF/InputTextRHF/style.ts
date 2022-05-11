@@ -16,7 +16,9 @@ export const Input = styled.TextInput`
 `;
 
 export const LabelError = styled.Text`
-  color: red;
+  color: ${({ theme }) => theme.colors.attention};
   margin-top: -10px;
   margin-bottom: 10px;
+  font-size: ${RFValue(10)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
