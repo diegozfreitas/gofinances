@@ -14,3 +14,9 @@ export const Input = styled.TextInput`
   color:  ${({ theme }) => theme.colors.text};
   margin-bottom: 8px;
 `;
+
+export const LabelError = styled.Text`
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 10px;
+`;

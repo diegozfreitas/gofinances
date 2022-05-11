@@ -1,14 +1,18 @@
 import React from "react";
 import { TextInputProps } from "react-native";
 
-import { Container, Input } from "./style";
+import { Container, Input, LabelError } from "./style";
 
-interface InputTextProps extends TextInputProps {}
+interface InputTextProps extends TextInputProps {
+  error: string;
+}
 
-export const InputText = ({...rest}: InputTextProps) => {
+export const InputText = ({ error, ...rest }: InputTextProps) => {
   return (
-    <Container >
+    <Container>
       <Input {...rest} />
+
+      {error && <LabelError>{error}</LabelError>}
     </Container>
   );
 };
