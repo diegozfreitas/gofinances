@@ -18,6 +18,6 @@ export const ContainerOptions = styled.View`
   justify-content: space-between;
 `;
 
-export const MarginEight = styled.View`
+export const MarginTopEight = styled.View`
   margin-top: 8px;
 `;
