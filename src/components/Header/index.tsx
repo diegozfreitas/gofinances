@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 import {
   Container,
@@ -9,7 +9,8 @@ import {
   TextGreeting,
   TextName,
   Icon,
-  Title
+  Title,
+  LogoutButton,
 } from "./style";
 
 interface HeaderProps {
@@ -36,7 +37,13 @@ export const Header = ({ hiddenInfoUser, height, title }: HeaderProps) => {
             </View>
           </ContentInfo>
 
-          <Icon name="power" />
+          <LogoutButton
+            onPress={() => {
+              console.log("botao de logout pressionado");
+            }}
+          >
+            <Icon name="power" />
+          </LogoutButton>
         </Head>
       )}
 
