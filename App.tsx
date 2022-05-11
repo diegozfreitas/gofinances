@@ -1,6 +1,5 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 
 import {
@@ -12,8 +11,9 @@ import {
 
 import light from "./src/globals/styles/light";
 
-import { Dashboard } from "./src/screens/Dashboard";
-import { Register } from "./src/screens/Register";
+import { NavigationContainer } from "@react-navigation/native";
+
+import { AppRoutes } from "./src/routes/app.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,13 +23,16 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <></>;
   }
 
   return (
     <ThemeProvider theme={light}>
-      <Register />
       <StatusBar style="auto" />
+
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
