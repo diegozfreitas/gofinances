@@ -12,9 +12,10 @@ export interface DataCategory {
 
 interface ListCategoriesProps {
   data: DataCategory[];
+  onChange: (data: DataCategory) => void;
 }
 
-export const ListCategories = ({ data }: ListCategoriesProps) => {
+export const ListCategories = ({ data, onChange }: ListCategoriesProps) => {
   return (
     <Container>
       <Header title="Selecione" hiddenInfoUser height={14} />
@@ -23,7 +24,7 @@ export const ListCategories = ({ data }: ListCategoriesProps) => {
         data={data}
         keyExtractor={(item: DataCategory) => item.key}
         renderItem={({ item }: { item: DataCategory }) => (
-          <Item>
+          <Item onPress={() => onChange(item)}>
             <Circle color={item.color} />
             <Label>{item.name}</Label>
           </Item>

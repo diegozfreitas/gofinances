@@ -3,11 +3,16 @@ import { Modal, Text, View } from "react-native";
 
 import { Container, Header, Title, Icon } from "./style";
 
-export const Select = () => {
+interface SelectProps {
+  value: string;
+  onPress: () => void;
+}
+
+export const Select = ({ value, onPress }: SelectProps) => {
   return (
     <Container>
-      <Header animationType="slide" visible={true}>
-        <Title>Estou dentro do modal</Title>
+      <Header onPress={() => onPress()}>
+        <Title>{value ? value : "Estou dentro do modal"}</Title>
 
         <Icon name="chevron-down" />
       </Header>
