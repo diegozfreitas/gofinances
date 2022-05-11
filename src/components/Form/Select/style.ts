@@ -3,6 +3,10 @@ import { TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
 
+interface TitleProps {
+  selected: boolean;
+}
+
 export const Container = styled.View`
   margin-bottom: 8px;
 `;
@@ -18,8 +22,10 @@ export const Header = styled(TouchableOpacity).attrs({
   padding: 16px;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<TitleProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.text_dark : theme.colors.text};
 `;
 
 export const Icon = styled(Feather)`

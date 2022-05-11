@@ -12,7 +12,7 @@ export const Select = ({ value, onPress }: SelectProps) => {
   return (
     <Container>
       <Header onPress={() => onPress()}>
-        <Title>{value ? value : "Estou dentro do modal"}</Title>
+        <Title selected={value!}>{value ? value : "Selecione"}</Title>
 
         <Icon name="chevron-down" />
       </Header>
