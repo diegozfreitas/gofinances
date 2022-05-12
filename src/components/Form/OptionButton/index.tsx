@@ -17,12 +17,12 @@ interface OptionButtonProps extends TouchableOpacityProps {
 
 export const OptionButton = (props: OptionButtonProps) => {
   const { title, type, width, isActive, ...rest } = props;
-  
+
   return (
     <Container {...rest} width={width} isActive={isActive} type={type}>
       <Icon name={icons[type]} type={type} />
 
-      <Label>{title}</Label>
+      <Label isActive={isActive}>{title}</Label>
     </Container>
   );
 };

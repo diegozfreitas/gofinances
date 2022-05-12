@@ -2,9 +2,9 @@ import styled, { css } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
 interface TypeProps {
-  type: "up" | "down";
+  type?: "up" | "down";
   width?: number;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export const Container = styled.TouchableOpacity<TypeProps>`
@@ -30,18 +30,15 @@ export const Container = styled.TouchableOpacity<TypeProps>`
       background-color: ${({ theme }) => theme.colors.attention_text};
     `};
 
-  ${({ isActive }) =>
-    !isActive &&
-    css`
-      border: 1px solid ${({ theme }) => theme.colors.text};
-    `}
-
   border-radius: 5px;
 `;
 
-export const Label = styled.Text`
+export const Label = styled.Text<TypeProps>`
   margin-left: 8px;
   font-family: ${({ theme }) => theme.fonts.regular};
+
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.colors.text_dark : theme.colors.text};
 `;
 
 export const Icon = styled(Feather)<TypeProps>`
