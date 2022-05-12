@@ -35,6 +35,7 @@ export const AppRoutes = () => {
               color={color}
             />
           ),
+          tabBarLabel: "Dashboard"
         }}
       />
       <Screen
@@ -48,6 +49,7 @@ export const AppRoutes = () => {
               color={color}
             />
           ),
+          tabBarLabel: "Lançar"
         }}
       />
       <Screen
@@ -61,6 +63,7 @@ export const AppRoutes = () => {
               color={color}
             />
           ),
+          tabBarLabel: "Balanço"
         }}
       />
     </Navigator>
