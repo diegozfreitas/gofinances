@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from "react-native-uuid";
 
 import { Header } from "../../components/Header";
 import { InputTextRHF } from "../../components/formRHF/InputTextRHF";
@@ -21,18 +24,24 @@ import {
 import { schema } from "./validations";
 
 import { categories } from "../../utils/categories";
+import { useEffect } from "react";
 interface FormData {
+  id: string;
   transactionType: string;
   category: string;
   amount: number;
   name: string;
+  date: string;
 }
 
 export const Register = () => {
   const [showModalSelectCategory, setShowModalSelectCategory] = useState(false);
-
   const [transactionType, setTransactionType] = useState("");
   const [category, setCategory] = useState("");
+
+  const dataKey = "@gofinance:transactions";
+
+  const navigation = useNavigation()
 
   const {
     control,
@@ -43,7 +52,7 @@ export const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleOnRegister: SubmitHandler<FormData> = (form) => {
+  const handleRegister: SubmitHandler<FormData> = async (form) => {
     if (transactionType === "")
       return Alert.alert(
         "Selecione o tipo",
@@ -55,19 +64,43 @@ export const Register = () => {
         "Você deve selecionar uma categoria!"
       );
 
-    const data: FormData = {
+    const newTransaction: FormData = {
+      id: String(uuid.v4()),
       transactionType: transactionType,
       category: category,
       name: form.name,
       amount: form.amount,
+      date: String(new Date()),
     };
 
-    console.log(data);
+    try {
+      const data = await AsyncStorage.getItem(dataKey);
 
-    reset();
-    setCategory("");
-    setTransactionType("");
+      const currentData = data ? JSON.parse(data) : [];
+
+      const dataFormatted = [...currentData, newTransaction];
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+      reset();
+      setCategory("");
+      setTransactionType("");
+
+      navigation.navigate("Listagem")
+    } catch (error) {
+      console.log("Erro no Registro", error);
+      Alert.alert("Não foi possivel guardar!");
+    }
   };
+
+  useEffect(() => {
+    async function loadDate() {
+      const result = await AsyncStorage.getItem(dataKey);
+
+      console.log(JSON.parse(result!));
+    }
+    loadDate();
+  }, []);
 
   return (
     <>
@@ -122,7 +155,7 @@ export const Register = () => {
               />
             </Fields>
 
-            <Button title="Enviar" onPress={handleSubmit(handleOnRegister)} />
+            <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
           </Form>
         </Container>
       </TouchableWithoutFeedback>
