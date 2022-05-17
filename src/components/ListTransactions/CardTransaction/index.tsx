@@ -2,31 +2,38 @@ import React from "react";
 
 import { Container, Title, Amount, Footer, Type, Date } from "./style";
 
-export interface TransactionProp{
-    title: string;
-    amount: string;
-    category: string;
-    date: string;
-    type: "up" | "down" | "resume";
-  };
+import { categories } from "../../../utils/categories";
+
+export interface TransactionProp {
+  id: string;
+  name: string;
+  amount: string;
+  category: string;
+  date: string;
+  type: "positive" | "negative";
+}
 
 interface CardTransactionProps {
-  data: TransactionProp
+  data: TransactionProp;
 }
 
 export const CardTransaction = ({ data }: CardTransactionProps) => {
-  const { title, amount, category, date, type } = data;
+  const { name, amount, category, date, type } = data;
+
+  const categoryColor = categories.find(
+    (item) => item.name === category
+  )?.color;
 
   return (
-    <Container type={type}>
-      <Title>{title}</Title>
+    <Container>
+      <Title>{name}</Title>
       <Amount type={type}>
-        {type === "down" && "- "}
+        {type === "negative" && "- "}
         {amount}
       </Amount>
 
       <Footer>
-        <Type>{category}</Type>
+        <Type color={categoryColor!}>{category}</Type>
         <Date>{date}</Date>
       </Footer>
     </Container>

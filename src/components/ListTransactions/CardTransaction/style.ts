@@ -1,10 +1,13 @@
-import styled, {css} from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 type typesProps = {
-  type: "up" | "down" | "resume";
+  type: "positive" | "negative";
 };
 
+type typeColor = {
+  color: string;
+};
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.shape};
 
@@ -24,13 +27,17 @@ export const Amount = styled.Text<typesProps>`
   font-family: ${({ theme }) => theme.fonts.medium};
   margin-bottom: 16px;
 
-  ${({ type }) => type === "up" && css`
-    color: ${({theme}) =>  theme.colors.success}; 
-  `};
+  ${({ type }) =>
+    type === "positive" &&
+    css`
+      color: ${({ theme }) => theme.colors.success};
+    `};
 
-  ${({ type }) => type === "down" && css`
-    color: ${({theme}) =>  theme.colors.attention}; 
-  `};
+  ${({ type }) =>
+    type === "negative" &&
+    css`
+      color: ${({ theme }) => theme.colors.attention};
+    `};
 `;
 
 export const Footer = styled.View`
@@ -39,10 +46,15 @@ export const Footer = styled.View`
   align-items: center;
 `;
 
-export const Type = styled.Text`
+export const Type = styled.Text<typeColor>`
   font-size: ${RFValue(14)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
   color: ${({ theme }) => theme.colors.text};
+
+  border-left-width: 4px;
+  border-style: solid;
+  border-color: ${({ color }) => (color ? color : "#333")};
+  padding-left: 12px;
 `;
 
 export const Date = styled.Text`

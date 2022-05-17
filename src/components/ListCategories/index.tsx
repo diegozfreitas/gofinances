@@ -1,6 +1,7 @@
 import React from "react";
+import { FlatList, ListRenderItemInfo } from "react-native";
 
-import { Container, List, Item, Label, Circle } from "./style";
+import { Container, Item, Label, Circle } from "./style";
 
 import { Header } from "../Header";
 
@@ -20,15 +21,15 @@ export const ListCategories = ({ data, onChange }: ListCategoriesProps) => {
     <Container>
       <Header title="Selecione" hiddenInfoUser height={14} />
 
-      <List
+      <FlatList
         data={data}
-        keyExtractor={(item: DataCategory) => item.key}
-        renderItem={({ item }: { item: DataCategory }) => (
+        renderItem={({ item }: ListRenderItemInfo<DataCategory>) => (
           <Item onPress={() => onChange(item)}>
             <Circle color={item.color} />
             <Label>{item.name}</Label>
           </Item>
         )}
+        keyExtractor={(item: DataCategory) => item.key}
       />
     </Container>
   );

@@ -10,8 +10,6 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-export const List = styled.FlatList``;
-
 export const Item = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
 })`
