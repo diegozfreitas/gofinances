@@ -4,12 +4,12 @@ import { TouchableOpacityProps } from "react-native";
 import { Container, Label, Icon } from "./style";
 
 const icons = {
-  up: "arrow-up-circle",
-  down: "arrow-down-circle",
+  positive: "arrow-up-circle",
+  negative: "arrow-down-circle",
 };
 
 interface OptionButtonProps extends TouchableOpacityProps {
-  type: "up" | "down";
+  type: "positive" | "negative";
   title: string;
   width?: number;
   isActive: boolean;

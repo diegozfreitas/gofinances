@@ -27,7 +27,7 @@ import { categories } from "../../utils/categories";
 import { useEffect } from "react";
 interface FormData {
   id: string;
-  transactionType: string;
+  type: string;
   category: string;
   amount: number;
   name: string;
@@ -39,9 +39,7 @@ export const Register = () => {
   const [transactionType, setTransactionType] = useState("");
   const [category, setCategory] = useState("");
 
-  const dataKey = "@gofinance:transactions";
-
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   const {
     control,
@@ -66,7 +64,7 @@ export const Register = () => {
 
     const newTransaction: FormData = {
       id: String(uuid.v4()),
-      transactionType: transactionType,
+      type: transactionType,
       category: category,
       name: form.name,
       amount: form.amount,
@@ -74,6 +72,8 @@ export const Register = () => {
     };
 
     try {
+      const dataKey = "@gofinance:transactions";
+
       const data = await AsyncStorage.getItem(dataKey);
 
       const currentData = data ? JSON.parse(data) : [];
@@ -86,21 +86,15 @@ export const Register = () => {
       setCategory("");
       setTransactionType("");
 
-      navigation.navigate("Listagem")
+      // @ts-ignore
+      navigation.navigate("Listagem");
     } catch (error) {
       console.log("Erro no Registro", error);
       Alert.alert("Não foi possivel guardar!");
     }
   };
 
-  useEffect(() => {
-    async function loadDate() {
-      const result = await AsyncStorage.getItem(dataKey);
-
-      console.log(JSON.parse(result!));
-    }
-    loadDate();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -132,18 +126,18 @@ export const Register = () => {
               <ContainerOptions>
                 <OptionButton
                   title="Entrada"
-                  type="up"
+                  type="positive"
                   width={48}
-                  isActive={transactionType === "up"}
-                  onPress={() => setTransactionType("up")}
+                  isActive={transactionType === "positive"}
+                  onPress={() => setTransactionType("positive")}
                 />
 
                 <OptionButton
                   title="Saida"
-                  type="down"
+                  type="negative"
                   width={48}
-                  isActive={transactionType === "down"}
-                  onPress={() => setTransactionType("down")}
+                  isActive={transactionType === "negative"}
+                  onPress={() => setTransactionType("negative")}
                 />
               </ContainerOptions>
 
@@ -155,7 +149,13 @@ export const Register = () => {
               />
             </Fields>
 
-            <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+            <Button
+              title="Enviar"
+              onPress={
+                // @ts-ignore
+                handleSubmit(handleRegister)
+              }
+            />
           </Form>
         </Container>
       </TouchableWithoutFeedback>

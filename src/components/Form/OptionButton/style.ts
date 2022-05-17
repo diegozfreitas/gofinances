@@ -2,7 +2,7 @@ import styled, { css } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
 interface TypeProps {
-  type?: "up" | "down";
+  type?: "positive" | "negative";
   width?: number;
   isActive?: boolean;
 }
@@ -18,14 +18,14 @@ export const Container = styled.TouchableOpacity<TypeProps>`
 
   ${({ isActive, type }) =>
     isActive &&
-    type === "up" &&
+    type === "positive" &&
     css`
       background-color: ${({ theme }) => theme.colors.success_text};
     `};
 
   ${({ isActive, type }) =>
     isActive &&
-    type === "down" &&
+    type === "negative" &&
     css`
       background-color: ${({ theme }) => theme.colors.attention_text};
     `};
@@ -46,13 +46,13 @@ export const Icon = styled(Feather)<TypeProps>`
   color: ${({ theme }) => theme.colors.success};
 
   ${({ type }) =>
-    type === "up" &&
+    type === "positive" &&
     css`
       color: ${({ theme }) => theme.colors.success};
     `}
 
   ${({ type }) =>
-    type === "down" &&
+    type === "negative" &&
     css`
       color: ${({ theme }) => theme.colors.attention};
     `}
