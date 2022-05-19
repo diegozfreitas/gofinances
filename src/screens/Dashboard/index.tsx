@@ -101,10 +101,12 @@ export const Dashboard = () => {
       transactions,
       "positive"
     );
+    
     const lastTransactionExpensive = getLastTransactionDate(
       transactions,
       "negative"
     );
+
     const totalInterval = `01 a ${lastTransactionExpensive}`;
 
     setHighLightData({
