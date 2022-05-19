@@ -113,7 +113,7 @@ export const Dashboard = () => {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <ActivityIndicator color={theme.colors.secondary} size={50} />
-          <Text>Carregando..</Text>
+          <Text>Carregando...</Text>
         </View>
       ) : (
         <>
