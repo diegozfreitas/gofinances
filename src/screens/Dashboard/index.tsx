@@ -14,6 +14,7 @@ import { useTheme } from "styled-components";
 
 interface highLightProps {
   amount: string;
+  lastTransaction: string;
 }
 
 interface highLightData {
@@ -30,6 +31,25 @@ export const Dashboard = () => {
   );
 
   const theme = useTheme();
+
+  const getLastTransactionDate = (
+    collection: TransactionProp[],
+    type: "positive" | "negative"
+  ) => {
+    const lastTransaction = new Date(
+      Math.max.apply(
+        Math,
+        collection
+          .filter((item) => item.type === type)
+          .map((item) => new Date(item.date).getTime())
+      )
+    );
+
+    return `${lastTransaction.getDate()} de  ${lastTransaction.toLocaleString(
+      "pt-BR",
+      { month: "long" }
+    )}`;
+  };
 
   async function loadTransactions() {
     const dataKey = "@gofinance:transactions";
@@ -76,24 +96,38 @@ export const Dashboard = () => {
     const total = entriesSum - expensiveSum;
 
     setTransactions(transactionsFormatted);
+
+    const lastTransactionEntries = getLastTransactionDate(
+      transactions,
+      "positive"
+    );
+    const lastTransactionExpensive = getLastTransactionDate(
+      transactions,
+      "negative"
+    );
+    const totalInterval = `01 a ${lastTransactionExpensive}`;
+
     setHighLightData({
       entries: {
         amount: entriesSum.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
+        lastTransaction: `Última entrada dia ${lastTransactionEntries}`,
       },
       expensive: {
         amount: expensiveSum.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
+        lastTransaction: `Última saída dia ${lastTransactionExpensive}`,
       },
       total: {
         amount: total.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
+        lastTransaction: totalInterval,
       },
     });
   }
@@ -123,19 +157,19 @@ export const Dashboard = () => {
             <ResumeCard
               title={"Entrada"}
               amount={highLightData?.entries?.amount}
-              description={"bla bla bla"}
+              description={highLightData?.entries?.lastTransaction}
               type={"up"}
             />
             <ResumeCard
               title={"Saidas"}
               amount={highLightData?.expensive?.amount}
-              description={"bla bla bla"}
+              description={highLightData?.expensive?.lastTransaction}
               type={"down"}
             />
             <ResumeCard
               title={"Resumo"}
               amount={highLightData?.total?.amount}
-              description={"bla bla bla"}
+              description={highLightData?.total?.lastTransaction}
               type={"resume"}
             />
           </ContentResumeCards>
