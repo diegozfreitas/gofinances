@@ -6,6 +6,7 @@ import { Container } from "./style";
 import { CardItem } from "./CardTransaction";
 
 export interface CategoryData {
+  key: string;
   name: string;
   total: string;
   color: string;
@@ -23,7 +24,7 @@ export const HistoryCard = ({ data }: HistoryCardProps) => {
         renderItem={({ item }: { item: CategoryData }) => (
           <CardItem amount={item.total} title={item.name} color={item.color} />
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.key}
       />
     </Container>
   );
