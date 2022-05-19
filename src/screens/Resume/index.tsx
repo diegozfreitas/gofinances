@@ -1,12 +1,14 @@
 import React, { useCallback, useState } from "react";
+import { ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { RFValue } from "react-native-responsive-fontsize";
 import { VictoryPie } from "victory-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
 
-import { Container } from "./style";
+import { Container, ContainerChart } from "./style";
 
 import { Header } from "../../components/Header";
 import { CategoryData, HistoryCard } from "../../components/HistoryCard";
@@ -23,7 +25,7 @@ export const Resume = () => {
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     [] as CategoryData[]
   );
-  const theme = useTheme()
+  const theme = useTheme();
 
   const loadData = async () => {
     const dataKey = "@gofinance:transactions";
@@ -88,16 +90,28 @@ export const Resume = () => {
     <Container>
       <Header hiddenInfoUser height={14} title="Resumo" />
 
-      <VictoryPie
-        data={totalByCategories}
-        x="percent"
-        y="totalUnFormatted"
-        colorScale={totalByCategories.map((cat) => cat.color)}
-        style={{ labels: { fontSize: RFValue(18), fontWeight: "bold", fill: theme.colors.shape  } }}
-        labelRadius={75}
-      />
+      <ContainerChart>
+        <VictoryPie
+          data={totalByCategories}
+          x="percent"
+          y="totalUnFormatted"
+          colorScale={totalByCategories.map((cat) => cat.color)}
+          style={{
+            labels: {
+              fontSize: RFValue(18),
+              fontWeight: "bold",
+              fill: theme.colors.shape,
+            },
+          }}
+          labelRadius={75}
+          height={350}
+        />
+      </ContainerChart>
 
-      <HistoryCard data={totalByCategories} />
+      <HistoryCard
+        paddingBottom={useBottomTabBarHeight()}
+        data={totalByCategories}
+      />
     </Container>
   );
 };

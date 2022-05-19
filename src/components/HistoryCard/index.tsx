@@ -14,12 +14,14 @@ export interface CategoryData {
 
 interface HistoryCardProps {
   data: CategoryData[];
+  paddingBottom: number
 }
 
-export const HistoryCard = ({ data }: HistoryCardProps) => {
+export const HistoryCard = ({ data, paddingBottom }: HistoryCardProps) => {
   return (
-    <Container>
+    <Container paddingBottom={paddingBottom}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={data}
         renderItem={({ item }: { item: CategoryData }) => (
           <CardItem amount={item.total} title={item.name} color={item.color} />
