@@ -20,9 +20,9 @@ interface CardTransactionProps {
 export const CardTransaction = ({ data }: CardTransactionProps) => {
   const { name, amount, category, date, type } = data;
 
-  const categoryColor = categories.find(
-    (item) => item.name === category
-  )?.color;
+  const categoryObj = categories.find(
+    (item) => item.key === category
+  )
 
   return (
     <Container>
@@ -33,7 +33,7 @@ export const CardTransaction = ({ data }: CardTransactionProps) => {
       </Amount>
 
       <Footer>
-        <Type color={categoryColor!}>{category}</Type>
+        <Type color={categoryObj!.color}>{categoryObj!.name}</Type>
         <Date>{date}</Date>
       </Footer>
     </Container>

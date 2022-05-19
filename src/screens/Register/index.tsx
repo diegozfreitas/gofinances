@@ -144,7 +144,11 @@ export const Register = () => {
               <MarginTopEight />
 
               <Select
-                value={category}
+                value={
+                  categories.find((item) => item.key === category)
+                    ? categories.find((item) => item.key === category)!.name
+                    : ""
+                }
                 onPress={() => setShowModalSelectCategory(true)}
               />
             </Fields>
@@ -164,7 +168,7 @@ export const Register = () => {
         <ListCategories
           data={categories}
           onChange={(obj: DataCategory) => {
-            setCategory(obj.name);
+            setCategory(obj.key);
             setShowModalSelectCategory(false);
           }}
         />
