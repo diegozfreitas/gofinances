@@ -3,6 +3,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { addMonths, subMonths, format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
@@ -22,10 +24,19 @@ interface HistoryCardResume extends CategoryData {
 }
 
 export const Resume = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     [] as CategoryData[]
   );
   const theme = useTheme();
+
+  const handleDateChange = (action: "next" | "prev") => {
+    if (action === "next") {
+      setSelectedDate(addMonths(selectedDate, 1));
+    } else {
+      setSelectedDate(subMonths(selectedDate, 1));
+    }
+  };
 
   const loadData = async () => {
     const dataKey = "@gofinance:transactions";
@@ -33,7 +44,10 @@ export const Resume = () => {
     const responseFormatted = response ? JSON.parse(response) : [];
 
     const allExpensive = responseFormatted.filter(
-      (expensive: TransactionProp) => expensive.type === "negative"
+      (expensive: TransactionProp) =>
+        expensive.type === "negative" &&
+        new Date(expensive.date).getMonth() === selectedDate.getMonth() &&
+        new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
     );
 
     const sumAllExpensive = allExpensive.reduce(
@@ -42,8 +56,6 @@ export const Resume = () => {
       },
       0
     );
-
-    console.log(sumAllExpensive);
 
     const totalByCategory: HistoryCardResume[] = [];
 
@@ -83,14 +95,18 @@ export const Resume = () => {
   useFocusEffect(
     useCallback(() => {
       loadData();
-    }, [])
+    }, [selectedDate])
   );
 
   return (
     <Container>
       <Header hiddenInfoUser height={14} title="Resumo" />
 
-      <FilterByMonth />
+      <FilterByMonth
+        onNext={() => handleDateChange("next")}
+        onPrev={() => handleDateChange("prev")}
+        value={format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
+      />
 
       <ContainerChart>
         <VictoryPie
