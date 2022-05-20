@@ -1,0 +1,33 @@
+import styled from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+import { RFValue } from "react-native-responsive-fontsize";
+
+export const Container = styled.View`
+  width: 100%;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px;
+`;
+
+export const Button = styled.TouchableOpacity`
+    padding-left: 8px;
+    padding-right: 8px;
+`;
+
+export const IconPrev = styled(Feather)`
+  font-size: ${RFValue(24)}px;
+  color: ${({theme})=> theme.colors.text_dark};
+`;
+
+export const IconNext = styled(Feather)`
+  font-size: ${RFValue(24)}px;
+  color: ${({theme})=> theme.colors.text_dark};
+`;
+
+export const Month = styled.Text`
+  font-size: ${RFValue(22)}px;
+  color: ${({theme})=> theme.colors.text_dark};
+`;
