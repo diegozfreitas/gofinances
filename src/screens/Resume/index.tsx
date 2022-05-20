@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
@@ -25,6 +25,7 @@ interface HistoryCardResume extends CategoryData {
 }
 
 export const Resume = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [firstDateDB, setFirstDateDB] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
@@ -41,6 +42,7 @@ export const Resume = () => {
   };
 
   const loadData = async () => {
+    setIsLoading(true);
     const dataKey = "@gofinance:transactions";
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
@@ -52,7 +54,9 @@ export const Resume = () => {
         new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
     );
 
-    setFirstDateDB(new Date(allExpensive[0].date));
+    if (allExpensive.length > 0) {
+      setFirstDateDB(new Date(allExpensive[0].date));
+    }
 
     const sumAllExpensive = allExpensive.reduce(
       (accumulator: number, expensive: TransactionProp) => {
@@ -94,6 +98,7 @@ export const Resume = () => {
     });
 
     setTotalByCategories(totalByCategory);
+    setIsLoading(false);
   };
 
   useFocusEffect(
@@ -106,50 +111,65 @@ export const Resume = () => {
     <Container>
       <Header hiddenInfoUser height={14} title="Resumo" />
 
-      <FilterByMonth
-        onNext={() => handleDateChange("next")}
-        onPrev={() => handleDateChange("prev")}
-        value={format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
-        disabledPrev={
-          new Date(firstDateDB).getMonth() === selectedDate.getMonth() &&
-          new Date(firstDateDB).getFullYear() === selectedDate.getFullYear()
-        }
-        disabledNext={
-          new Date().getMonth() === selectedDate.getMonth() &&
-          new Date().getFullYear() === selectedDate.getFullYear()
-        }
-      />
-
-      {totalByCategories.length === 0 && (
+      {isLoading ? (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text>Sem dados</Text>
+          <ActivityIndicator color={theme.colors.secondary} size={50} />
+          <Text>Carregando...</Text>
         </View>
+      ) : (
+        <>
+          <FilterByMonth
+            onNext={() => handleDateChange("next")}
+            onPrev={() => handleDateChange("prev")}
+            value={format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
+            disabledPrev={
+              new Date(firstDateDB).getMonth() === selectedDate.getMonth() &&
+              new Date(firstDateDB).getFullYear() === selectedDate.getFullYear()
+            }
+            disabledNext={
+              new Date().getMonth() === selectedDate.getMonth() &&
+              new Date().getFullYear() === selectedDate.getFullYear()
+            }
+          />
+
+          {totalByCategories.length === 0 && (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text>Sem dados</Text>
+            </View>
+          )}
+
+          <ContainerChart>
+            <VictoryPie
+              data={totalByCategories}
+              x="percent"
+              y="totalUnFormatted"
+              colorScale={totalByCategories.map((cat) => cat.color)}
+              style={{
+                labels: {
+                  fontSize: RFValue(18),
+                  fontWeight: "bold",
+                  fill: theme.colors.shape,
+                },
+              }}
+              labelRadius={75}
+              height={350}
+            />
+          </ContainerChart>
+
+          <HistoryCard
+            paddingBottom={useBottomTabBarHeight()}
+            data={totalByCategories}
+          />
+        </>
       )}
-
-      <ContainerChart>
-        <VictoryPie
-          data={totalByCategories}
-          x="percent"
-          y="totalUnFormatted"
-          colorScale={totalByCategories.map((cat) => cat.color)}
-          style={{
-            labels: {
-              fontSize: RFValue(18),
-              fontWeight: "bold",
-              fill: theme.colors.shape,
-            },
-          }}
-          labelRadius={75}
-          height={350}
-        />
-      </ContainerChart>
-
-      <HistoryCard
-        paddingBottom={useBottomTabBarHeight()}
-        data={totalByCategories}
-      />
     </Container>
   );
 };

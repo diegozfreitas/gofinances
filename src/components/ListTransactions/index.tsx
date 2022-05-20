@@ -12,7 +12,7 @@ export interface ListTransactionsProps {
 export const ListTransactions = ({ data }: ListTransactionsProps) => {
   return (
     <Container>
-      <Title>Listagem</Title>
+      <Title>{data.length === 0 ? "Sem dados" : "Listagem"}</Title>
 
       <FlatList
         data={data}

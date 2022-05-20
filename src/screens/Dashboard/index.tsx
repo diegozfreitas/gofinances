@@ -24,7 +24,7 @@ interface highLightData {
 }
 
 export const Dashboard = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [transactions, setTransactions] = useState([] as TransactionProp[]);
   const [highLightData, setHighLightData] = useState<highLightData>(
     {} as highLightData
@@ -52,8 +52,8 @@ export const Dashboard = () => {
   };
 
   async function loadTransactions() {
+    setIsLoading(true);
     const dataKey = "@gofinance:transactions";
-    //await AsyncStorage.removeItem(dataKey);
     const response = await AsyncStorage.getItem(dataKey);
 
     const transactions = response ? JSON.parse(response) : [];
@@ -101,7 +101,7 @@ export const Dashboard = () => {
       transactions,
       "positive"
     );
-    
+
     const lastTransactionExpensive = getLastTransactionDate(
       transactions,
       "negative"
@@ -115,21 +115,27 @@ export const Dashboard = () => {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: `Última entrada dia ${lastTransactionEntries}`,
+        lastTransaction:
+          entriesSum === 0
+            ? "Ainda não tem entrada"
+            : `Última entrada dia ${lastTransactionEntries}`,
       },
       expensive: {
         amount: expensiveSum.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: `Última saída dia ${lastTransactionExpensive}`,
+        lastTransaction:
+          expensiveSum === 0
+            ? "Ainda não tem saída"
+            : `Última saída dia ${lastTransactionExpensive}`,
       },
       total: {
         amount: total.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         }),
-        lastTransaction: totalInterval,
+        lastTransaction: total === 0 ? "" : totalInterval,
       },
     });
   }
@@ -144,6 +150,8 @@ export const Dashboard = () => {
 
   return (
     <Container>
+      <Header />
+
       {isLoading ? (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -153,8 +161,6 @@ export const Dashboard = () => {
         </View>
       ) : (
         <>
-          <Header />
-
           <ContentResumeCards>
             <ResumeCard
               title={"Entrada"}
