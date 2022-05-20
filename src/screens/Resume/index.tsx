@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import { ScrollView, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
@@ -12,6 +11,7 @@ import { Container, ContainerChart } from "./style";
 
 import { Header } from "../../components/Header";
 import { CategoryData, HistoryCard } from "../../components/HistoryCard";
+import { FilterByMonth } from "../../components/FilterByMonth";
 import { TransactionProp } from "../../components/ListTransactions/CardTransaction";
 
 import { categories } from "../../utils/categories";
@@ -89,6 +89,8 @@ export const Resume = () => {
   return (
     <Container>
       <Header hiddenInfoUser height={14} title="Resumo" />
+
+      <FilterByMonth />
 
       <ContainerChart>
         <VictoryPie
