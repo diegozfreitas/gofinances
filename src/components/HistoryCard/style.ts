@@ -12,5 +12,5 @@ export const Container = styled.View<ContainerProps>`
   padding-bottom: ${({ paddingBottom }) =>
     paddingBottom ? paddingBottom : 0}px;
 
-  max-height: ${RFPercentage(42)}px;
+  max-height: ${RFPercentage(34)}px;
 `;
