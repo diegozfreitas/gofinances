@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { Text, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { VictoryPie } from "victory-native";
@@ -25,6 +26,7 @@ interface HistoryCardResume extends CategoryData {
 
 export const Resume = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [firstDateDB, setFirstDateDB] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     [] as CategoryData[]
   );
@@ -49,6 +51,8 @@ export const Resume = () => {
         new Date(expensive.date).getMonth() === selectedDate.getMonth() &&
         new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
     );
+
+    setFirstDateDB(new Date(allExpensive[0].date));
 
     const sumAllExpensive = allExpensive.reduce(
       (accumulator: number, expensive: TransactionProp) => {
@@ -106,7 +110,23 @@ export const Resume = () => {
         onNext={() => handleDateChange("next")}
         onPrev={() => handleDateChange("prev")}
         value={format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
+        disabledPrev={
+          new Date(firstDateDB).getMonth() === selectedDate.getMonth() &&
+          new Date(firstDateDB).getFullYear() === selectedDate.getFullYear()
+        }
+        disabledNext={
+          new Date().getMonth() === selectedDate.getMonth() &&
+          new Date().getFullYear() === selectedDate.getFullYear()
+        }
       />
+
+      {totalByCategories.length === 0 && (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text>Sem dados</Text>
+        </View>
+      )}
 
       <ContainerChart>
         <VictoryPie
