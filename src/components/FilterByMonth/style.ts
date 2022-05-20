@@ -28,6 +28,6 @@ export const IconNext = styled(Feather)`
 `;
 
 export const Month = styled.Text`
-  font-size: ${RFValue(22)}px;
+  font-size: ${RFValue(20)}px;
   color: ${({theme})=> theme.colors.text_dark};
 `;
