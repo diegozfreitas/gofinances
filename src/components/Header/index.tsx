@@ -13,6 +13,8 @@ import {
   LogoutButton,
 } from "./style";
 
+import { UseAuth } from "../../contexts/Auth";
+
 interface HeaderProps {
   hiddenInfoUser?: boolean;
   height?: number;
@@ -20,6 +22,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ hiddenInfoUser, height, title }: HeaderProps) => {
+  const { singOut, user } = UseAuth();
+
   return (
     <Container height={height}>
       {!hiddenInfoUser && (
@@ -27,21 +31,17 @@ export const Header = ({ hiddenInfoUser, height, title }: HeaderProps) => {
           <ContentInfo>
             <Image
               source={{
-                uri: "https://avatars.githubusercontent.com/u/14065173",
+                uri: user.photo,
               }}
             />
 
             <View style={{ marginLeft: 16 }}>
               <TextGreeting>Olá</TextGreeting>
-              <TextName>Diego</TextName>
+              <TextName>{user.name}</TextName>
             </View>
           </ContentInfo>
 
-          <LogoutButton
-            onPress={() => {
-              console.log("botao de logout pressionado");
-            }}
-          >
+          <LogoutButton onPress={()=> singOut()}>
             <Icon name="power" />
           </LogoutButton>
         </Head>

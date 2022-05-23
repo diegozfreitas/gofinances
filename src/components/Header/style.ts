@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
-import { BorderlessButton } from "react-native-gesture-handler";
 
 type FeatherProps = typeof Feather;
 interface ContainerProps {
@@ -44,7 +43,7 @@ export const TextName = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 `;
 
-export const LogoutButton = styled(BorderlessButton)``;
+export const LogoutButton = styled.TouchableOpacity``;
 
 export const Icon = styled(Feather)<FeatherProps>`
   color: ${({ theme }) => theme.colors.secondary};

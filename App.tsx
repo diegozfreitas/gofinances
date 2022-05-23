@@ -13,18 +13,20 @@ import {
 
 import light from "./src/globals/styles/light";
 
-import { AuthProvider } from "./src/contexts/Auth";
+import { AuthProvider, UseAuth } from "./src/contexts/Auth";
 
 import { Routes } from "./src/routes";
 
 export default function App() {
+  const {isLoading} = UseAuth()
+
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_700Bold,
   });
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || isLoading) {
     return <></>;
   }
 
