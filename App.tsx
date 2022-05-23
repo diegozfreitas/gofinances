@@ -13,12 +13,9 @@ import {
 
 import light from "./src/globals/styles/light";
 
-import { NavigationContainer } from "@react-navigation/native";
-
-import { AppRoutes } from "./src/routes/app.routes";
-import { SingIn } from "./src/screens/SingIn";
-
 import { AuthProvider } from "./src/contexts/Auth";
+
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -35,12 +32,9 @@ export default function App() {
     <ThemeProvider theme={light}>
       <StatusBar style="light" />
 
-      <NavigationContainer>
-        <AuthProvider>
-          {/* <AppRoutes /> */}
-          <SingIn />
-        </AuthProvider>
-      </NavigationContainer>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

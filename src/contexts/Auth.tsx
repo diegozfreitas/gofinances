@@ -37,6 +37,8 @@ const AuthContext = createContext({} as AuthContextData);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState({} as User);
 
+  
+
   const singInWithGoogle = async () => {
     try {
       const RESPONSE_TYPE = "token";
