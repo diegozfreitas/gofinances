@@ -1,5 +1,10 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
+import { LogBox } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as AuthSession from "expo-auth-session";
+import * as AppleAuThentication from "expo-apple-authentication";
+
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 
 const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
@@ -17,6 +22,7 @@ interface User {
 interface AuthContextData {
   user: User;
   singInWithGoogle: () => Promise<void>;
+  singInWithApple: () => Promise<void>;
 }
 
 interface AuthorizationResponse {
@@ -48,22 +54,54 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         );
         const userInfo = await response.json();
 
-        const user: User = {
+        const userLogged: User = {
           email: userInfo.email,
           id: userInfo.id,
           name: userInfo.given_name + userInfo.family_name,
           photo: userInfo.picture,
         };
 
-        setUser(user);
+        setUser(userLogged);
+        await AsyncStorage.setItem(
+          "@gofinances:user",
+          JSON.stringify(userLogged)
+        );
       }
     } catch (err) {
-      console.log("error", err);
+      throw new Error(err);
+    }
+  };
+
+  const singInWithApple = async () => {
+    try {
+      const credential = await AppleAuThentication.signInAsync({
+        requestedScopes: [
+          AppleAuThentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuThentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+
+      if (credential) {
+        const userLogged: User = {
+          id: String(credential.user),
+          email: credential.email!,
+          name: credential.fullName?.givenName!,
+          photo: undefined,
+        };
+
+        setUser(userLogged);
+        await AsyncStorage.setItem(
+          "@gofinances:user",
+          JSON.stringify(userLogged)
+        );
+      }
+    } catch (err) {
+      throw new Error(err);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, singInWithGoogle }}>
+    <AuthContext.Provider value={{ user, singInWithGoogle, singInWithApple }}>
       {children}
     </AuthContext.Provider>
   );
