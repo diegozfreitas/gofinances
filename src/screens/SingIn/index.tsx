@@ -5,6 +5,8 @@ import AppleSvg from "../../assets/apple.svg";
 import GoogleSvg from "../../assets/google.svg";
 import LogoSvg from "../../assets/logo.svg";
 
+import { UseAuth } from "../../contexts/Auth";
+
 import { SingInSocialButton } from "../../components/SingInSocialButton";
 
 import {
@@ -18,6 +20,8 @@ import {
 } from "./style";
 
 export const SingIn = () => {
+  const { user } = UseAuth();
+
   return (
     <Container>
       <Header>

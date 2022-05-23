@@ -1,8 +1,8 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { ThemeProvider } from "styled-components";
-import 'intl'
-import 'intl/locale-data/jsonp/pt-BR'
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
 
 import {
   useFonts,
@@ -17,6 +17,8 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { AppRoutes } from "./src/routes/app.routes";
 import { SingIn } from "./src/screens/SingIn";
+
+import { AuthProvider } from "./src/contexts/Auth";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -34,8 +36,10 @@ export default function App() {
       <StatusBar style="light" />
 
       <NavigationContainer>
-        {/* <AppRoutes /> */}
-        <SingIn />
+        <AuthProvider>
+          {/* <AppRoutes /> */}
+          <SingIn />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
