@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from "react-native-uuid";
 
+import { UseAuth } from "../../contexts/Auth";
+
 import { Header } from "../../components/Header";
 import { InputTextRHF } from "../../components/formRHF/InputTextRHF";
 import { OptionButton } from "../../components/Form/OptionButton";
@@ -38,6 +40,8 @@ export const Register = () => {
   const [showModalSelectCategory, setShowModalSelectCategory] = useState(false);
   const [transactionType, setTransactionType] = useState("");
   const [category, setCategory] = useState("");
+
+  const { user } = UseAuth();
 
   const navigation = useNavigation();
 
@@ -72,7 +76,7 @@ export const Register = () => {
     };
 
     try {
-      const dataKey = "@gofinance:transactions";
+      const dataKey = `@gofinance:transactions_user:${user.id}`;
 
       const data = await AsyncStorage.getItem(dataKey);
 

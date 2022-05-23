@@ -7,6 +7,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { addMonths, subMonths, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
+import { UseAuth } from "../../contexts/Auth";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useTheme } from "styled-components";
 
@@ -31,6 +32,7 @@ export const Resume = () => {
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
     [] as CategoryData[]
   );
+  const { user } = UseAuth();
   const theme = useTheme();
 
   const handleDateChange = (action: "next" | "prev") => {
@@ -43,7 +45,7 @@ export const Resume = () => {
 
   const loadData = async () => {
     setIsLoading(true);
-    const dataKey = "@gofinance:transactions";
+    const dataKey = `@gofinance:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
 

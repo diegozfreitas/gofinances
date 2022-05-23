@@ -3,6 +3,8 @@ import { ActivityIndicator, View, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 
+import { UseAuth } from "../../contexts/Auth";
+
 import { Header } from "../../components/Header";
 import { ListTransactions } from "../../components/ListTransactions";
 
@@ -30,6 +32,8 @@ export const Dashboard = () => {
     {} as highLightData
   );
 
+  const { user } = UseAuth();
+
   const theme = useTheme();
 
   const getLastTransactionDate = (
@@ -53,7 +57,7 @@ export const Dashboard = () => {
 
   async function loadTransactions() {
     setIsLoading(true);
-    const dataKey = "@gofinance:transactions";
+    const dataKey = `@gofinance:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
 
     const transactions = response ? JSON.parse(response) : [];

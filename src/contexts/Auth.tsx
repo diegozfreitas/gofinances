@@ -46,7 +46,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState({} as User);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userStorageKey = "@gofinances:user";
+  const userStorageKey = "@gofinance:user";
 
   useEffect(() => {
     (async () => {
