@@ -16,6 +16,7 @@ import light from "./src/globals/styles/light";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { AppRoutes } from "./src/routes/app.routes";
+import { SingIn } from "./src/screens/SingIn";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,7 +34,8 @@ export default function App() {
       <StatusBar style="light" />
 
       <NavigationContainer>
-        <AppRoutes />
+        {/* <AppRoutes /> */}
+        <SingIn />
       </NavigationContainer>
     </ThemeProvider>
   );
