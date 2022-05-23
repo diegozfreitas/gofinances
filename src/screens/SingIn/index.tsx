@@ -1,10 +1,11 @@
 import React from "react";
-import { Text } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import AppleSvg from "../../assets/apple.svg";
 import GoogleSvg from "../../assets/google.svg";
 import LogoSvg from "../../assets/logo.svg";
+
+import { SingInSocialButton } from "../../components/SingInSocialButton";
 
 import {
   Container,
@@ -13,6 +14,7 @@ import {
   Title,
   SingInTitle,
   Footer,
+  FooterWrapper,
 } from "./style";
 
 export const SingIn = () => {
@@ -33,8 +35,11 @@ export const SingIn = () => {
       </Header>
 
       <Footer>
-        <AppleSvg />
-        <GoogleSvg />
+        <FooterWrapper>
+          <SingInSocialButton svg={GoogleSvg} title="Entrar com Google" />
+
+          <SingInSocialButton svg={AppleSvg} title="Entrar com Apple" />
+        </FooterWrapper>
       </Footer>
     </Container>
   );
