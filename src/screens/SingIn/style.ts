@@ -7,6 +7,7 @@ export const Header = styled.View`
   width: 100%;
   height: ${RFPercentage(70)}px;
   height: 70%;
+  padding-top: 50px;
 
   background-color: ${({ theme }) => theme.colors.primary};
 
@@ -24,7 +25,7 @@ export const Title = styled.Text`
   font-size: ${RFValue(30)}px;
 
   text-align: center;
-  margin-top: 45px;
+  margin-top: 35px;
 `;
 
 export const SingInTitle = styled.Text`
@@ -33,7 +34,7 @@ export const SingInTitle = styled.Text`
   font-size: ${RFValue(16)}px;
 
   text-align: center;
-  margin-top: 80px;
+  margin-top: 60px;
   margin-bottom: 60px;
 `;
 

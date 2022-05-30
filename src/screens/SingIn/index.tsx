@@ -53,7 +53,7 @@ export const SingIn = () => {
     <Container>
       <Header>
         <TitleWrapper>
-          <LogoSvg width={RFValue(120)} height={RFValue(68)} />
+          <LogoSvg width={RFValue(150)} height={RFValue(85)} />
 
           <Title>
             Controle suas {"\n"}finanças de forma {"\n"} muito simples
