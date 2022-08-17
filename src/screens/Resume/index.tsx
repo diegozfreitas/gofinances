@@ -126,15 +126,13 @@ export const Resume = () => {
             onNext={() => handleDateChange("next")}
             onPrev={() => handleDateChange("prev")}
             value={format(selectedDate, "MMMM, yyyy", { locale: ptBR })}
-            disabledPrev={
-              new Date(firstDateDB).getMonth() === selectedDate.getMonth() &&
-              new Date(firstDateDB).getFullYear() === selectedDate.getFullYear()
-            }
+            disabledPrev={ new Date(firstDateDB).getMonth() === new Date().getMonth()+1}
             disabledNext={
               new Date().getMonth() === selectedDate.getMonth() &&
               new Date().getFullYear() === selectedDate.getFullYear()
             }
           />
+          
 
           {totalByCategories.length === 0 && (
             <View
