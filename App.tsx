@@ -18,7 +18,7 @@ import { AuthProvider, UseAuth } from "./src/contexts/Auth";
 import { Routes } from "./src/routes";
 
 export default function App() {
-  const {isLoading} = UseAuth()
+  const { isLoading } = UseAuth();
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
