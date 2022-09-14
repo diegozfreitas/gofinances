@@ -1,16 +1,16 @@
 import React from "react";
-import { Modal, Text, View } from "react-native";
+import { Modal, Text, ViewProps } from "react-native";
 
 import { Container, Header, Title, Icon } from "./style";
 
-interface SelectProps {
+interface SelectProps extends ViewProps {
   value: string;
   onPress: () => void;
 }
 
-export const Select = ({ value, onPress }: SelectProps) => {
+export const Select = ({ value, onPress, ...rest }: SelectProps) => {
   return (
-    <Container>
+    <Container {...rest}>
       <Header onPress={() => onPress()}>
         <Title selected={value ? true : false}>
           {value ? value : "Selecione"}

@@ -6,14 +6,23 @@ import { Container, Input, LabelError } from "./style";
 
 interface InputTextProps extends TextInputProps {
   error: string;
+  active?: boolean;
 }
 
-export const InputText = ({ error, ...rest }: InputTextProps) => {
+export const InputText = ({
+  active = false,
+  error,
+  ...rest
+}: InputTextProps) => {
   const theme = useTheme();
 
   return (
     <Container>
-      <Input {...rest} placeholderTextColor={theme.colors.text} />
+      <Input
+        active={active}
+        {...rest}
+        //placeholderTextColor={theme.colors.text}
+      />
 
       {error && <LabelError>{error}</LabelError>}
     </Container>

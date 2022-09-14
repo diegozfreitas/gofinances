@@ -26,7 +26,7 @@ export const InputTextRHF = ({
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeholderTextColor={theme.colors.text}
+            //placeholderTextColor={theme.colors.text}
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}

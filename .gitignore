@@ -54,4 +54,7 @@ buck-out/
 web-build/
 dist/
 
+#tests
+/coverage
+
 .env

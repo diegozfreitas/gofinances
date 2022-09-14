@@ -110,6 +110,7 @@ export const Register = () => {
             <Fields>
               <InputTextRHF
                 placeholder="Nome"
+                testID="input-name"
                 control={control}
                 name="name"
                 autoCapitalize="sentences"
@@ -119,6 +120,7 @@ export const Register = () => {
 
               <InputTextRHF
                 placeholder="Valor"
+                testID="input-value"
                 control={control}
                 name="amount"
                 keyboardType="numeric"
@@ -148,6 +150,7 @@ export const Register = () => {
               <MarginTopEight />
 
               <Select
+                testID="button-modal-category"
                 value={
                   categories.find((item) => item.key === category)
                     ? categories.find((item) => item.key === category)!.name
@@ -168,7 +171,7 @@ export const Register = () => {
         </Container>
       </TouchableWithoutFeedback>
 
-      <Modal visible={showModalSelectCategory}>
+      <Modal testID="modal-category" visible={showModalSelectCategory}>
         <ListCategories
           data={categories}
           onChange={(obj: DataCategory) => {

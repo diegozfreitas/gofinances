@@ -31,8 +31,7 @@ export const SingIn = () => {
     try {
       setIsLoading(true);
       return await singInWithGoogle();
-    } catch (Err) {
-      console.log(Err);
+    } catch (err) {
       setIsLoading(false);
       Alert.alert("Não foi possivel conectar a conta Google");
     }
